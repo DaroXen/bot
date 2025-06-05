@@ -95,3 +95,62 @@
   <div id="m-i">
     <input id="m-in" type="text" placeholder="Escribí tu mensaje..." />
     <button id="m-s">➤</button>
+  </div>
+</div>
+
+<script>
+const webhook = "https://emeem.app.n8n.cloud/webhook/8f427031-1110-4ea3-aef7-5d06ba7d5bce/chat";
+
+const btn = document.getElementById('m-btn');
+const box = document.getElementById('m-box');
+const close = document.getElementById('m-c');
+const msgs = document.getElementById('m-msgs');
+const input = document.getElementById('m-in');
+const send = document.getElementById('m-s');
+
+const addMessage = (text, user) => {
+  const msg = document.createElement('div');
+  msg.className = `msg ${user ? 'u' : 'b'}`;
+  const mc = document.createElement('div');
+  mc.className = 'mc';
+  mc.textContent = text;
+  msg.appendChild(mc);
+  msgs.appendChild(msg);
+  msgs.scrollTop = msgs.scrollHeight;
+};
+
+btn.onclick = () => { box.style.display = 'flex'; };
+close.onclick = () => { box.style.display = 'none'; };
+
+send.onclick = async () => {
+  const text = input.value.trim();
+  if (!text) return;
+  addMessage(text, true);
+  input.value = '';
+  send.disabled = true;
+
+  try {
+    const res = await fetch(webhook, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ chatInput: text, sessionId: 'emeem', timestamp: new Date().toISOString() })
+    });
+    const data = await res.json();
+    let reply = 'Gracias por tu mensaje.';
+    if (Array.isArray(data) && data.length) reply = data[0]?.text || reply;
+    else if (data?.text || data?.reply || data?.message) reply = data.text || data.reply || data.message;
+    addMessage(reply, false);
+  } catch {
+    addMessage('❌ Hubo un problema de conexión.', false);
+  } finally {
+    send.disabled = false;
+  }
+};
+
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter') send.click();
+});
+</script>
+
+</body>
+</html>
