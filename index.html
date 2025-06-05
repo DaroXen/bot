@@ -6,7 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chatbot Emeem</title>
   <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #0d1b2a; }
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #0d1b2a; color: white; }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      max-width: 600px;
+      margin: auto;
+      font-size: 1.2em;
+    }
 
     #m-btn {
       position: fixed; bottom: 20px; right: 20px;
@@ -81,6 +97,12 @@
 </head>
 <body>
 
+<section>
+  <h1>Emeem</h1>
+  <p>Somos especialistas en bots inteligentes para atención al cliente.<br>
+     Hablá con nuestro asistente o contactanos directamente.</p>
+</section>
+
 <button id="m-btn">💬 Chateá con Emeem</button>
 
 <div id="m-box" style="display: none; flex-direction: column;">
@@ -154,3 +176,4 @@ input.addEventListener('keydown', e => {
 
 </body>
 </html>
+
