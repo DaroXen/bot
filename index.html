@@ -1,182 +1,155 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chatbot Emeem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emeem - Bots Inteligentes</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" />
   <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #0d1b2a; color: white; }
+    :root {
+      --azul-principal: #3aa6ff;
+      --azul-oscuro: #0c1b2b;
+      --blanco: #ffffff;
+      --gris-claro: #cfd8dc;
+    }
 
-    section {
-      padding: 60px 20px;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--azul-oscuro);
+      color: var(--blanco);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 5rem;
       text-align: center;
     }
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
+    header img {
+      width: 60px;
+      margin-bottom: 0.5rem;
     }
 
-    p {
-      max-width: 600px;
-      margin: auto;
-      font-size: 1.2em;
+    header h1 {
+      font-size: 2.2rem;
+      margin: 0.2rem 0;
     }
 
-    #m-btn {
-      position: fixed; bottom: 20px; right: 20px;
-      background: #3ca6ff; color: white;
-      border: none; border-radius: 50px;
-      padding: 14px 22px; font-size: 16px; font-weight: bold;
-      cursor: pointer; display: flex; align-items: center; gap: 10px;
-      box-shadow: 0 4px 12px rgba(60,166,255,0.3);
-      z-index: 9999;
+    header h2 {
+      font-size: 1.5rem;
+      margin: 0.5rem 0;
+      color: var(--gris-claro);
+      max-width: 500px;
     }
 
-    #m-box {
-      display: none; position: fixed; bottom: 85px; right: 20px;
-      width: 95vw; max-width: 400px; height: 550px;
-      background: white; border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      flex-direction: column; overflow: hidden;
-      animation: fade-in .3s ease; z-index: 9999;
+    section {
+      max-width: 700px;
+      margin-bottom: 3rem;
     }
 
-    @keyframes fade-in { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
-
-    #m-head {
-      background: #0d1b2a; color: white; padding: 12px 16px;
-      display: flex; align-items: center; gap: 10px;
+    .benefits, .cases, .testimonios {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
 
-    #m-head img {
-      height: 32px; width: 32px; border-radius: 50%;
+    .benefit, .case, .testimonial {
+      background-color: #132b42;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
-    #m-head-title {
-      font-size: 16px; font-weight: bold;
+    .benefit h3, .case h3 {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
     }
 
-    #m-c {
-      margin-left: auto; background: rgba(255,255,255,0.2);
-      border: none; color: white; font-size: 18px;
-      border-radius: 50%; width: 28px; height: 28px; cursor: pointer;
+    .cta {
+      background-color: var(--azul-principal);
+      color: #fff;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
     }
 
-    #m-msgs {
-      flex: 1; padding: 16px; overflow-y: auto;
-      background: #f1f1f1;
+    .cta:hover {
+      background-color: #2c90df;
     }
 
-    .msg { display: flex; margin-bottom: 12px; gap: 8px; }
-    .msg.u { flex-direction: row-reverse; }
-    .mc {
-      padding: 10px 14px; border-radius: 16px;
-      max-width: 75%; line-height: 1.4;
-    }
-    .msg.b .mc { background: #e0e0e0; color: #333; }
-    .msg.u .mc { background: #3ca6ff; color: white; }
-
-    #m-i {
-      padding: 12px 16px; display: flex; gap: 10px;
-      border-top: 1px solid #ccc; background: white;
+    footer {
+      margin-top: 4rem;
+      color: var(--gris-claro);
+      font-size: 0.85rem;
     }
 
-    #m-in {
-      flex: 1; padding: 8px 14px; border: 1px solid #ccc;
-      border-radius: 20px; font-size: 14px;
-    }
-
-    #m-s {
-      background: #3ca6ff; color: white; border: none;
-      border-radius: 50%; width: 36px; height: 36px;
-      cursor: pointer;
+    @media (min-width: 600px) {
+      .benefits, .cases, .testimonios {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Logo Emeem" />
+    <h1>Asistentes virtuales a medida para tu negocio</h1>
+    <h2>En Emeem creamos bots inteligentes, personalizados para cada caso, diseñados para resolver problemas reales y mejorar tu atención al cliente.</h2>
+  </header>
 
-<section style="padding: 80px 20px 40px; text-align: center;">
-  <img src="logo-emeem (1).png" alt="Logo Emeem" style="height: 140px; margin-bottom: 20px;">
-  <p style="max-width: 600px; margin: auto; font-size: 1.2em;">
-    Somos especialistas en bots inteligentes para atención al cliente.<br>
-    Hablá con nuestro asistente o contactanos directamente.
-  </p>
-</section>
+  <section class="benefits">
+    <div class="benefit">
+      <h3>💬 Atención automática 24/7</h3>
+      <p>Tu negocio siempre disponible para responder a tus clientes.</p>
+    </div>
+    <div class="benefit">
+      <h3>📈 Aumentá tus ventas</h3>
+      <p>Respondé rápido, vendé más. Sin perder oportunidades.</p>
+    </div>
+    <div class="benefit">
+      <h3>🤖 Bots 100% personalizados</h3>
+      <p>Diseñamos cada asistente virtual adaptado a las necesidades de tu rubro. Nada genérico.</p>
+    </div>
+    <div class="benefit">
+      <h3>📱 Compatible con WhatsApp e Instagram</h3>
+      <p>Conectamos tus redes con automatización real.</p>
+    </div>
+  </section>
 
+  <section class="cases">
+    <div class="case">
+      <h3>🎯 Pedido de productos</h3>
+      <p>Clientes que preguntan por precios y stock reciben respuesta inmediata.</p>
+    </div>
+    <div class="case">
+      <h3>📅 Agendamiento de turnos</h3>
+      <p>Ideal para profesionales y servicios. Aumentá tu organización.</p>
+    </div>
+  </section>
 
-<button id="m-btn">💬 Chateá con Emeem</button>
+  <section class="testimonios">
+    <div class="testimonial">
+      <p>“Desde que usamos Emeem, respondemos más rápido y con menos esfuerzo. ¡Un golazo!”</p>
+      <strong>- Distribuidora OVA</strong>
+    </div>
+    <div class="testimonial">
+      <p>“Nuestro bot agenda turnos en segundos. Antes lo hacíamos a mano.”</p>
+      <strong>- Psicóloga Lucía Núñez</strong>
+    </div>
+  </section>
 
-<div id="m-box" style="display: none; flex-direction: column;">
-  <div id="m-head">
-    <img src="logo-emeem.png" alt="Emeem">
-    <div id="m-head-title">EmeemBot</div>
-    <button id="m-c">×</button>
-  </div>
-  <div id="m-msgs">
-    <div class="msg b"><div class="mc">Hola, soy EmeemBot. ¿En qué puedo ayudarte?</div></div>
-  </div>
-  <div id="m-i">
-    <input id="m-in" type="text" placeholder="Escribí tu mensaje..." />
-    <button id="m-s">➤</button>
-  </div>
-</div>
+  <a href="#" class="cta">Chateá con Emeem</a>
 
-<script>
-const webhook = "https://emeem.app.n8n.cloud/webhook/7d891c67-2387-47a4-8174-8dd910524bbb/chat";
+  <footer>
+    &copy; 2025 Emeem · Bots inteligentes para negocios reales
+  </footer>
 
-const btn = document.getElementById('m-btn');
-const box = document.getElementById('m-box');
-const close = document.getElementById('m-c');
-const msgs = document.getElementById('m-msgs');
-const input = document.getElementById('m-in');
-const send = document.getElementById('m-s');
-
-const addMessage = (text, user) => {
-  const msg = document.createElement('div');
-  msg.className = `msg ${user ? 'u' : 'b'}`;
-  const mc = document.createElement('div');
-  mc.className = 'mc';
-  mc.textContent = text;
-  msg.appendChild(mc);
-  msgs.appendChild(msg);
-  msgs.scrollTop = msgs.scrollHeight;
-};
-
-btn.onclick = () => { box.style.display = 'flex'; };
-close.onclick = () => { box.style.display = 'none'; };
-
-send.onclick = async () => {
-  const text = input.value.trim();
-  if (!text) return;
-  addMessage(text, true);
-  input.value = '';
-  send.disabled = true;
-
-  try {
-    const res = await fetch(webhook, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ chatInput: text, sessionId: 'emeem', timestamp: new Date().toISOString() })
-    });
-    const data = await res.json();
-    let reply = 'Gracias por tu mensaje.';
-    if (Array.isArray(data) && data.length) reply = data[0]?.text || reply;
-    else if (data?.text || data?.reply || data?.message) reply = data.text || data.reply || data.message;
-    addMessage(reply, false);
-  } catch {
-    addMessage('❌ Hubo un problema de conexión.', false);
-  } finally {
-    send.disabled = false;
-  }
-};
-
-input.addEventListener('keydown', e => {
-  if (e.key === 'Enter') send.click();
-});
-</script>
-
+  <!-- Chatbot flotante -->
+  <script>
+    // Pegá aquí tu código del widget o iframe del chatbot si lo tenés embebido
+  </script>
 </body>
 </html>
-
